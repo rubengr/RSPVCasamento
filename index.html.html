@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adriana & Rúben - Convite de Casamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            margin: 0;
+            padding: 0;
+            background: url('gaurang-alat-nWMH7_9E2-E-unsplash.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            overflow: hidden; 
+        }
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.5rem;
+            margin: 10px 0 0;
+        }
+        main {
+            background: rgba(255, 255, 255, 0.9);
+            color: #5b4636;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #8e754a;
+            border-bottom: 2px solid #8e754a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .info p {
+            margin: 10px 0;
+        }
+        .info a {
+            color: #8e754a;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .info a:hover {
+            text-decoration: underline;
+        }
+        .image-gallery {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .image-gallery img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.1);
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tablink {
+            background-color: #8e754a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            text-align: center;
+        }
+        .tablink.active {
+            background-color: #705d38;
+        }
+        .tabcontent {
+            display: none;
+        }
+        .tabcontent.active {
+            display: block;
+        }
+        .rsvp-message {
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            margin-top: 20px;
+        }
+        footer a {
+            color: white;
+            margin: 0 10px;
+        }
+        .rsvp-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .rsvp-container label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .rsvp-container input,
+        .rsvp-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .rsvp-container button {
+            background-color: #8e754a;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+        }
+        .rsvp-container button:hover {
+            background-color: #705d38;
+        }
+        .rsvp-container .rsvp-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* Estilo Moderno para o Contador */
+        .countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 30px;
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .countdown .time {
+            display: inline-block;
+            padding: 20px;
+            background-color: #8e754a;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            border-radius: 10px;
+            margin: 0 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .countdown .time span {
+            display: block;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #f7f7f7;
+        }
+        .countdown .time.digits {
+            animation: countdownAnimation 1s ease-in-out;
+        }
+
+        @keyframes countdownAnimation {
+            0% {
+                transform: scale(0.9);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Media Queries para responsividade */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 10px;
+                text-align: center;
+                background: rgba(0, 0, 0, 0.8); /* Fundo mais opaco para legibilidade */
+            }
+            header h1 {
+                font-size: 2.5rem;
+                word-wrap: break-word; /* Permite quebra de linha no título */
+            }
+            header p {
+                font-size: 1.2rem;
+                margin: 10px 0;
+            }
+            .tabs {
+                flex-direction: column;
+                gap: 5px; /* Espaço entre os botões */
+            }
+            .tablink {
+                font-size: 14px;
+                padding: 12px;
+                width: 100%; /* Botões ocupam toda a largura */
+                text-align: center;
+            }
+            .image-gallery img {
+                width: 100%;
+                height: auto;
+                max-width: 500px;
+            }
+            .countdown {
+                font-size: 1.5rem;
+                margin-top: 20px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px; /* Adiciona espaçamento entre os blocos */
+            }
+            .countdown .time {
+                padding: 15px;
+                margin: 5px 0; /* Ajusta a distância vertical entre os blocos */
+                font-size: 2rem;
+                width: 100px; /* Define um tamanho fixo para cada bloco */
+            }
+            .rsvp-container input,
+            .rsvp-container textarea {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+                line-height: 1.2; /* Melhora o espaçamento entre linhas */
+            }
+            header p {
+                font-size: 1rem;
+            }
+            header {
+                padding: 15px 10px; /* Reduz o espaço ao redor do cabeçalho */
+            }
+            .tabs {
+                gap: 5px; /* Reduz a lacuna entre botões */
+            }
+            .tablink {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .rsvp-container label {
+                font-size: 14px;
+            }
+            .rsvp-container button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .countdown .time {
+                font-size: 1.5rem; /* Reduz o tamanho do texto */
+                width: 80px; /* Ajusta o tamanho dos blocos no contador */
+                padding: 10px;
+            }
+            .countdown {
+                padding: 10px;
+                gap: 10px; /* Ajusta a lacuna entre os elementos */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Adriana & Rúben</h1>
+        <p>Casamento e Batizado de Matilde</p>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tablink active" onclick="openTab(event, 'wedding')">Casamento & Batizado</button>
+            <!-- <button class="tablink" onclick="openTab(event, 'baptism')">Batizado</button> -->
+            <button class="tablink" onclick="openTab(event, 'rsvp')">Confirmação</button>
+        </div>
+
+        <div id="wedding" class="tabcontent active">
+            <h2>Está convidado para o Casamento!</h2>
+            <p><strong>Casamento de:</strong> Adriana & Rúben</p>
+            <p><strong>Batizado de:</strong> Matilde</p>
+            <p><strong>Data:</strong> 23 de Agosto de 2025</p>
+            <p><strong>Hora:</strong> 12h00</p>
+            <p><strong>Cerimónia:</strong> Igreja de Ribamar, Lourinhã
+                <a href="https://maps.app.goo.gl/y8sSNpKhgnfq7tRF7" target="_blank">Ver no mapa</a></p>
+            <p><strong>Celebração:</strong> Quinta do Juncal, Serra D'El Rei
+                <a href="https://maps.app.goo.gl/qBDijR2w85xcrqxA6" target="_blank">Ver no mapa</a></p>
+        </div>
+
+        <!-- <div id="baptism" class="tabcontent">
+            <h2>Batizado de Matilde!</h2>
+            <p><strong>Data:</strong> 23 de Agosto de 2025</p>
+            <p><strong>Hora:</strong> 14h00</p>
+            <p><strong>Local:</strong> Quinta do Juncal, Lourinhã</p>
+        </div> -->
+
+        <div id="rsvp" class="tabcontent">
+            <h2>Confirme sua presença</h2>
+            <div class="rsvp-container">
+                <form id="rsvp-form" name="rsvp-form" method="POST" data-netlify="true" action="#">
+                    <label for="name">Seu Nome:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+                
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                
+                    <label for="message">Mensagem (opcional):</label>
+                    <textarea id="message" name="message"></textarea><br><br>
+                
+                    <label for="adults">Número de Adultos:</label>
+                    <input type="number" id="adults" name="adults" min="0" required><br><br>
+                
+                    <label for="kids0to3">Número de Crianças (0-3 anos):</label>
+                    <input type="number" id="kids0to3" name="kids0to3" min="0" required><br><br>
+                
+                    <label for="kids4to9">Número de Crianças (4-9 anos):</label>
+                    <input type="number" id="kids4to9" name="kids4to9" min="0" required><br><br>
+                
+                    <button type="submit">Enviar</button>
+                </form>
+        
+                <div id="rsvp-success" class="rsvp-message">
+                    Obrigado por confirmar sua presença! Estamos ansiosos para celebrar com você.
+                </div>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Monumento%2C_Escola_B%C3%A1sica_e_Igreja_Ribamar_%28Lourinh%C3%A3%29.jpg" alt="Igreja de Ribamar">
+            <img src="https://quintadojuncal.pt/wp-content/uploads/slide05.jpg" alt="Quinta do Juncal">
+        </div>
+
+        <section class="countdown">
+            <p>Faltam:</p>
+            <div class="time digits" id="days"></div>
+            <div class="time digits" id="hours"></div>
+            <div class="time digits" id="minutes"></div>
+            <div class="time digits" id="seconds"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Adriana & Rúben. Todos os direitos reservados.</p>
+        <a href="#">Facebook</a> | <a href="#">Instagram</a>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        const eventDate = new Date('2025-08-23T11:30:00');
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = eventDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerHTML = `${days} <span>dias</span>`;
+            document.getElementById('hours').innerHTML = `${hours} <span>horas</span>`;
+            document.getElementById('minutes').innerHTML = `${minutes} <span>minutos</span>`;
+            document.getElementById('seconds').innerHTML = `${seconds} <span>segundos</span>`;
+        }
+
+        setInterval(updateCountdown, 1000);
+
+        const form = document.getElementById('rsvp-form');
+        const successMessage = document.getElementById('rsvp-success');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            successMessage.style.display = 'block';
+            form.reset();
+        });
+        
+    </script>
+</body>
+</html>
