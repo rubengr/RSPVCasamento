@@ -14,16 +14,20 @@
             background-size: cover;
             color: #ffffff;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            /* justify-content: center; */
+            /* align-items: center; */
+            /* height: 100vh; */
+            min-height: 100vh;
             flex-direction: column;
+            overflow-y: auto;
         }
         header {
             text-align: center;
             padding: 60px 20px;
             background: rgba(0, 0, 0, 0.6);
-            overflow: hidden; 
+            /* overflow: hidden;  */
+            width: 100%;
+            min-height: 150px; 
         }
         header h1 {
             font-family: 'Dancing Script', cursive;
@@ -214,11 +218,29 @@
 
         /* Media Queries para responsividade */
         @media (max-width: 768px) {
-            header {
-                padding: 20px 10px;
-                text-align: center;
-                background: rgba(0, 0, 0, 0.8); /* Fundo mais opaco para legibilidade */
+            body {
+                overflow-y: auto; /* Ativar rolagem caso necessário */
             }
+            header {
+                /* padding: 20px 10px; */
+                /* padding: 10px 20px; */
+                /* text-align: center; */
+                min-height: 200px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center; /* Centraliza verticalmente */
+                align-items: center; /* Centraliza horizontalmente */
+                text-align: center;
+                height: 100vh; /* Ocupa a altura toda da tela */
+                padding: 40px 20px;
+                /* background: rgba(0, 0, 0, 0.8); Fundo mais opaco para legibilidade */
+            }
+
+            main {
+                margin: 20px 10px; /* Ajustar a margem para evitar cortes laterais */
+                padding: 30px 20px; 
+            }
+
             header h1 {
                 font-size: 2.5rem;
                 word-wrap: break-word; /* Permite quebra de linha no título */
@@ -264,6 +286,10 @@
         }
 
         @media (max-width: 480px) {
+            main {
+                margin: 20px 15px; 
+                padding: 40px 25px; 
+            }
             header h1 {
                 font-size: 2rem;
                 line-height: 1.2; /* Melhora o espaçamento entre linhas */
