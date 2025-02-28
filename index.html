@@ -6,6 +6,18 @@
     <title>Adriana & Rúben - Convite de Casamento</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Slab&display=swap" rel="stylesheet">
     <style>
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('gaurang-alat-nWMH7_9E2-E-unsplash.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
         body {
             font-family: 'Roboto Slab', serif;
             margin: 0;
@@ -20,6 +32,9 @@
             min-height: 100vh;
             flex-direction: column;
             overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         header {
             text-align: center;
@@ -179,9 +194,13 @@
             background-color: rgba(0, 0, 0, 0.7);
             padding: 30px;
             border-radius: 20px;
-            display: inline-block;
+            /* display: inline-block; */
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
         }
         .countdown .time {
             display: inline-block;
@@ -220,6 +239,7 @@
         @media (max-width: 768px) {
             body {
                 overflow-y: auto; /* Ativar rolagem caso necessário */
+                background-attachment: scroll;
             }
             header {
                 /* padding: 20px 10px; */
@@ -237,7 +257,7 @@
             }
 
             main {
-                margin: 20px 10px; /* Ajustar a margem para evitar cortes laterais */
+                margin: 40px 40px;
                 padding: 30px 20px; 
             }
 
@@ -344,7 +364,7 @@
             <p><strong>Casamento de:</strong> Adriana & Rúben</p>
             <p><strong>Batizado de:</strong> Matilde</p>
             <p><strong>Data:</strong> 23 de Agosto de 2025</p>
-            <p><strong>Hora:</strong> 12h00</p>
+            <p><strong>Hora:</strong> 11h30</p>
             <p><strong>Cerimónia:</strong> Igreja de Ribamar, Lourinhã
                 <a href="https://maps.app.goo.gl/y8sSNpKhgnfq7tRF7" target="_blank">Ver no mapa</a></p>
             <p><strong>Celebração:</strong> Quinta do Juncal, Serra D'El Rei
@@ -393,7 +413,7 @@
         <div class="image-gallery">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Monumento%2C_Escola_B%C3%A1sica_e_Igreja_Ribamar_%28Lourinh%C3%A3%29.jpg" alt="Igreja de Ribamar">
             <img src="https://quintadojuncal.pt/wp-content/uploads/slide05.jpg" alt="Quinta do Juncal">
-        </div>
+        </div>    
 
         <section class="countdown">
             <p>Faltam:</p>
@@ -427,13 +447,18 @@
         const eventDate = new Date('2025-08-23T11:30:00');
 
         function updateCountdown() {
-            const now = new Date();
+            const now = new Date('2025-08-23T11:30:00');
             const timeLeft = eventDate - now;
 
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            if (timeLeft <= 0) {
+                document.querySelector('.countdown').innerHTML = "<p>O grande dia chegou! 🎉</p>";
+                return;
+            }
 
             document.getElementById('days').innerHTML = `${days} <span>dias</span>`;
             document.getElementById('hours').innerHTML = `${hours} <span>horas</span>`;
@@ -449,6 +474,15 @@
         form.addEventListener('submit', function(event) {
             successMessage.style.display = 'block';
         });
+
+        function openLightbox(img) {
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
         
     </script>
 </body>
