@@ -26,9 +26,6 @@
             background-size: cover;
             color: #ffffff;
             display: flex;
-            /* justify-content: center; */
-            /* align-items: center; */
-            /* height: 100vh; */
             min-height: 100vh;
             flex-direction: column;
             overflow-y: auto;
@@ -40,7 +37,6 @@
             text-align: center;
             padding: 60px 20px;
             background: rgba(0, 0, 0, 0.6);
-            /* overflow: hidden;  */
             width: 100%;
             min-height: 150px; 
         }
@@ -281,8 +277,11 @@
             }
             .image-gallery img {
                 width: 100%;
-                height: auto;
-                max-width: 500px;
+                height: 250px; /* Ajuste a altura conforme necessário */
+                object-fit: cover; /* Isso garante que as imagens fiquem cortadas uniformemente */
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease-in-out;
             }
             .countdown {
                 font-size: 1.5rem;
@@ -355,7 +354,6 @@
     <main>
         <div class="tabs">
             <button class="tablink active" onclick="openTab(event, 'wedding')">Casamento & Batizado</button>
-            <!-- <button class="tablink" onclick="openTab(event, 'baptism')">Batizado</button> -->
             <button class="tablink" onclick="openTab(event, 'rsvp')">Confirmação</button>
         </div>
 
@@ -370,13 +368,6 @@
             <p><strong>Celebração:</strong> Quinta do Juncal, Serra D'El Rei
                 <a href="https://maps.app.goo.gl/qBDijR2w85xcrqxA6" target="_blank">Ver no mapa</a></p>
         </div>
-
-        <!-- <div id="baptism" class="tabcontent">
-            <h2>Batizado de Matilde!</h2>
-            <p><strong>Data:</strong> 23 de Agosto de 2025</p>
-            <p><strong>Hora:</strong> 14h00</p>
-            <p><strong>Local:</strong> Quinta do Juncal, Lourinhã</p>
-        </div> -->
 
         <div id="rsvp" class="tabcontent">
             <h2>Confirme sua presença</h2>
