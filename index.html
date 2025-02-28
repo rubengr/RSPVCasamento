@@ -335,8 +335,9 @@
         <div id="rsvp" class="tabcontent">
             <h2>Confirme sua presença</h2>
             <div class="rsvp-container">
-                <form id="rsvp-form" name="rsvp-form" method="POST" data-netlify="true" action="#">
-                    <label for="name">Seu Nome:</label>
+                <form id="rsvp-form" name="rsvp" method="POST" data-netlify="true" action="#">
+                    <input type="hidden" name="form-name" value="rsvp">
+                    <label for="name">Nome:</label>
                     <input type="text" id="name" name="name" required><br><br>
                 
                     <label for="email">E-mail:</label>
@@ -348,13 +349,13 @@
                     <label for="adults">Número de Adultos:</label>
                     <input type="number" id="adults" name="adults" min="0" required><br><br>
                 
-                    <label for="kids0to3">Número de Crianças (0-3 anos):</label>
+                    <label for="kids0to3">Crianças (0-3 anos):</label>
                     <input type="number" id="kids0to3" name="kids0to3" min="0" required><br><br>
                 
-                    <label for="kids4to9">Número de Crianças (4-9 anos):</label>
+                    <label for="kids4to9">Crianças (4-9 anos):</label>
                     <input type="number" id="kids4to9" name="kids4to9" min="0" required><br><br>
                 
-                    <button type="submit">Enviar</button>
+                    <button type="submit">Confirmar Presença</button>
                 </form>
         
                 <div id="rsvp-success" class="rsvp-message">
