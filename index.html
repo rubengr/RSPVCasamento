@@ -499,15 +499,15 @@
         }
 
         document.getElementById('add-adult').addEventListener('click', function() {
-            addGuest('adults-container', 'adult-name', 'Nome do Adulto');
+            addGuest('adults-container', 'adults[]', 'Nome do Adulto');
         });
 
         document.getElementById('add-kid-0-3').addEventListener('click', function() {
-            addGuest('kids-0-3-container', 'kid-0-3-name', 'Nome da Criança (0-3 anos)');
+            addGuest('kids-0-3-container', 'kids0to3[]', 'Nome da Criança (0-3 anos)');
         });
 
         document.getElementById('add-kid-4-9').addEventListener('click', function() {
-            addGuest('kids-4-9-container', 'kid-4-9-name', 'Nome da Criança (4-9 anos)');
+            addGuest('kids-4-9-container', 'kids4to9[]', 'Nome da Criança (4-9 anos)');
         });
 
                 
