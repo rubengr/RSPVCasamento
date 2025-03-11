@@ -219,6 +219,28 @@
             animation: countdownAnimation 1s ease-in-out;
         }
 
+        .guest-body {
+                display: grid;
+                gap: 10px;
+                padding: 10px 0;
+                vertical-align: middle;
+            }
+        .guest-row {
+                display: flex ;
+                gap: 10px;
+                align-items: center;
+            }
+
+        .guest-row input[type="text"] {
+                /* width: 100%; */
+                width: calc(100% - 100px);
+                color: white;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                cursor: pointer;
+        }    
+
         @keyframes countdownAnimation {
             0% {
                 transform: scale(0.9);
@@ -342,6 +364,15 @@
                 padding: 10px;
                 gap: 10px; /* Ajusta a lacuna entre os elementos */
             }
+
+            .guest-row {
+                display: flex;
+                /* grid-template-columns: 1fr 100px 1fr;  */
+                gap: 10px;
+                align-items: center;
+                justify-content: space-between;
+            } 
+           
         }
     </style>
 </head>
@@ -383,16 +414,48 @@
                     <label for="message">Mensagem (opcional):</label>
                     <textarea id="message" name="message"></textarea><br><br>
                 
-                    <label for="adults">Número de Adultos:</label>
-                    <input type="number" id="adults" name="adults" min="0" required><br><br>
-                
-                    <label for="kids0to3">Crianças (0-3 anos):</label>
-                    <input type="number" id="kids0to3" name="kids0to3" min="0" required><br><br>
-                
-                    <label for="kids4to9">Crianças (4-9 anos):</label>
-                    <input type="number" id="kids4to9" name="kids4to9" min="0" required><br><br>
-                
-                    <button type="submit">Confirmar Presença</button>
+                    <h3>Adultos</h3>
+                    <div class="guest-table">
+                        <div class="guest-header">
+                            <div>Nomes</div>
+                        </div>
+                        <div id="adults-container" class="guest-body">
+                            <div class="guest-row">
+                                <input type="text" name="adult-name[]" placeholder="Nome do Adulto" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-adult">Adicionar outro Adulto</button><br><br>
+
+                    <!-- Crianças (4-9 anos) -->
+                    <h3>Crianças (4-9 anos)</h3>
+                    <div class="guest-table">
+                        <div class="guest-header">
+                            <div>Nomes</div>
+                        </div>
+                        <div id="kids-4-9-container" class="guest-body">
+                            <div class="guest-row">
+                                <input type="text" name="kid-4-9-name[]" placeholder="Nome da Criança (4-9 anos)" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-kid-4-9">Adicionar outra Criança (4-9 anos)</button><br><br>
+
+                    <!-- Crianças (0-3 anos) -->
+                    <h3>Crianças (0-3 anos)</h3>
+                    <div class="guest-table">
+                        <div class="guest-header">
+                            <div>Nomes</div>
+                        </div>
+                        <div id="kids-0-3-container" class="guest-body">
+                            <div class="guest-row">
+                                <input type="text" name="kid-0-3-name[]" placeholder="Nome da Criança (0-3 anos)" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-kid-0-3">Adicionar outra Criança (0-3 anos)</button><br><br>
+
+            <button type="submit">Confirmar Presença</button>
                 </form>
         
                 <div id="rsvp-success" class="rsvp-message">
@@ -421,6 +484,34 @@
     </footer>
 
     <script>
+       function addGuest(containerId, inputName, placeholder) {
+            const container = document.getElementById(containerId);
+            const newGuest = document.createElement('div');
+            newGuest.classList.add('guest-row');
+            newGuest.innerHTML = `
+                <input type="text" name="${inputName}[]" placeholder="${placeholder}" required>
+                <button type="button" class="remove-guest">Remover</button>
+            `;
+            container.appendChild(newGuest);
+            
+            newGuest.querySelector('.remove-guest').addEventListener('click', function() {
+                newGuest.remove();
+            });
+        }
+
+        document.getElementById('add-adult').addEventListener('click', function() {
+            addGuest('adults-container', 'adult-name', 'Nome do Adulto');
+        });
+
+        document.getElementById('add-kid-0-3').addEventListener('click', function() {
+            addGuest('kids-0-3-container', 'kid-0-3-name', 'Nome da Criança (0-3 anos)');
+        });
+
+        document.getElementById('add-kid-4-9').addEventListener('click', function() {
+            addGuest('kids-4-9-container', 'kid-4-9-name', 'Nome da Criança (4-9 anos)');
+        });
+
+                
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
