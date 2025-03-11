@@ -488,7 +488,7 @@
             const newGuest = document.createElement('div');
             newGuest.classList.add('guest-row');
             newGuest.innerHTML = `
-                <input type="text" name="${inputName}[]" placeholder="${placeholder}" required>
+                <input type="text" name="${inputName}" placeholder="${placeholder}" required>
                 <button type="button" class="remove-guest">Remover</button>
             `;
             container.appendChild(newGuest);
@@ -499,15 +499,15 @@
         }
 
         document.getElementById('add-adult').addEventListener('click', function() {
-            addGuest('adults-container', 'adults[]', 'Nome do Adulto');
+            addGuest('adults-container', 'adults', 'Nome do Adulto');
         });
 
         document.getElementById('add-kid-0-3').addEventListener('click', function() {
-            addGuest('kids-0-3-container', 'kids0to3[]', 'Nome da Criança (0-3 anos)');
+            addGuest('kids-0-3-container', 'kids0to3', 'Nome da Criança (0-3 anos)');
         });
 
         document.getElementById('add-kid-4-9').addEventListener('click', function() {
-            addGuest('kids-4-9-container', 'kids4to9[]', 'Nome da Criança (4-9 anos)');
+            addGuest('kids-4-9-container', 'kids4to9', 'Nome da Criança (4-9 anos)');
         });
 
                 
