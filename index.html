@@ -241,15 +241,35 @@
                 cursor: pointer;
         }    
 
-        /* #rsvp-success {
-            display: none;
+        #rsvp-success {
+            display: block; /* Mantém o elemento no fluxo do documento */
+            visibility: hidden; /* Esconde o elemento, mas mantém seu espaço */
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
         }
+
         #rsvp-success.show {
-            display: block;
+            visibility: visible; /* Torna o elemento visível */
             opacity: 1;
-        } */
+        }
+
+        #rsvp-form.hide {
+            display: none; /* Oculta o formulário */
+        }
+
+        .rsvp-message.error {
+            background-color: #f8d7da; /* Fundo vermelho claro */
+            color: #721c24; /* Texto vermelho escuro */
+            border: 1px solid #f5c6cb; /* Borda vermelha */
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none; /* Inicialmente oculta */
+        }
+
+        .rsvp-message.error.show {
+            display: block; /* Mostra a mensagem de erro */
+        }
 
         @keyframes countdownAnimation {
             0% {
@@ -471,6 +491,10 @@
                 <div id="rsvp-success" class="rsvp-message">
                     Obrigado por confirmar sua presença! Estamos ansiosos para celebrar com você.
                 </div>
+                <div id="rsvp-error" class="rsvp-message error">
+                    Ocorreu um erro ao enviar sua confirmação. Por favor, entre em contato com os noivos:<br>
+                    Adriana - 911909059 | Rúben - 916761125
+                </div>
             </div>
         </div>
 
@@ -590,16 +614,21 @@
 
                 if (result.status === "Success") {
                     // Exibe a mensagem de sucesso
-                    successMessage.style.display = 'block';
+                    // successMessage.style.display = 'block';
+                    successMessage.classList.add('show'); // Mostra a mensagem de sucesso
+                    form.classList.add('hide'); // Oculta o formulário
+                    errorMessage.classList.remove('show');
                     // document.getElementById('rsvp-success').style.display = 'block';
 
                     // Opcional: Limpa o formulário após o envio
                     // document.getElementById('rsvpForm').reset();
                 } else {
-                    alert("Ocorreu um erro: " + result.message);
+                    errorMessage.classList.add('show');
+                    // alert("Ocorreu um erro: " + result.message);
                 }
             } catch (error) {
-                alert("Erro ao enviar o formulário. Tente novamente.");
+                // alert("Erro ao enviar o formulário. Tente novamente.");
+                errorMessage.classList.add('show');
                 console.error(error);
             } finally {
                 submitButton.disabled = false; // Reabilita o botão de envio
