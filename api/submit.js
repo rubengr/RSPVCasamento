@@ -31,7 +31,11 @@ export default async function handler(req, res) {
 
         // Retorna a resposta do Google Apps Script
         const result = await response.json();
-        res.status(200).json(result);
+        if (result.status === "Success") {
+            window.location.href = result.redirectUrl; // Redireciona para a página de confirmação
+          } else {
+            alert("Ocorreu um erro: " + result.message);
+          }
     } catch (error) {
         console.error('Erro:', error);
         res.status(500).json({ error: 'Erro ao processar a requisição' });
