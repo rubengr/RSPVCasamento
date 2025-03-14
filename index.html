@@ -565,7 +565,7 @@
         form.addEventListener('submit', async function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
-            const submitButton = document.querySelector('#rsvpForm button[type="submit"]');
+            const submitButton = form.querySelector('button[type="submit"]');
             submitButton.disabled = true; // Desabilita o botão de envio
 
             const formData = new FormData(this);
