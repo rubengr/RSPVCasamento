@@ -10,12 +10,12 @@ export default async function handler(req, res) {
 
         const data = {
             data: {
-                name: req.body.data.name,
-                email: req.body.data.email,
-                message: req.body.data.message || "",
-                adults: req.body.data.adults || "[]",
-                kids4to9: req.body.data.kids4to9 || "[]",
-                kids0to3: req.body.data.kids0to3 || "[]",
+                name: req.body.name,
+                email: req.body.email,
+                message: req.body.message || "",
+                adults: req.body.adults || "[]",
+                kids4to9: req.body.kids4to9 || "[]",
+                kids0to3: req.body.kids0to3 || "[]",
             }
         };
 
