@@ -241,6 +241,16 @@
                 cursor: pointer;
         }    
 
+        #rsvp-success {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        #rsvp-success.show {
+            display: block;
+            opacity: 1;
+        }
+
         @keyframes countdownAnimation {
             0% {
                 transform: scale(0.9);
@@ -553,7 +563,47 @@
         const successMessage = document.getElementById('rsvp-success');
 
         form.addEventListener('submit', function(event) {
-            successMessage.style.display = 'block';
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const submitButton = document.querySelector('#rsvpForm button[type="submit"]');
+            submitButton.disabled = true; // Desabilita o botão de envio
+
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message') || "",
+                adults: JSON.stringify(formData.getAll('adults') || "[]"),
+                kids4to9: JSON.stringify(formData.getAll('kids4to9') || "[]"),
+                kids0to3: JSON.stringify(formData.getAll('kids0to3') || "[]"),
+            };
+
+            try {
+                // Envia os dados para a função serverless
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                const result = await response.json();
+
+                if (result.status === "Success") {
+                    // Exibe a mensagem de sucesso
+                    successMessage.style.display = 'block';
+                    // document.getElementById('rsvp-success').style.display = 'block';
+
+                    // Opcional: Limpa o formulário após o envio
+                    // document.getElementById('rsvpForm').reset();
+                } else {
+                    alert("Ocorreu um erro: " + result.message);
+                }
+            } catch (error) {
+                alert("Erro ao enviar o formulário. Tente novamente.");
+                console.error(error);
+            } finally {
+                submitButton.disabled = false; // Reabilita o botão de envio
+            }
         });
 
         function openLightbox(img) {
