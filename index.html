@@ -562,7 +562,7 @@
         const form = document.getElementById('rsvp-form');
         const successMessage = document.getElementById('rsvp-success');
 
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', async function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
             const submitButton = document.querySelector('#rsvpForm button[type="submit"]');
