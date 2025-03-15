@@ -271,6 +271,27 @@
             display: block; /* Mostra a mensagem de erro */
         }
 
+        .tablink:disabled {
+            opacity: 0.5; /* Torna o botão mais claro */
+            cursor: not-allowed; /* Altera o cursor para indicar que o botão não é clicável */
+        }
+
+        .deadline-message {
+            display: none; /* Inicialmente oculta */
+            color: #721c24; /* Cor do texto */
+            font-weight: bold; /* Texto em negrito */
+            margin-top: 20px; /* Espaçamento superior */
+        }
+
+        .deadline-message a {
+            color: #721c24; /* Cor dos links */
+            text-decoration: none; /* Remove o sublinhado */
+        }
+
+        .deadline-message a:hover {
+            text-decoration: underline; /* Sublinhado ao passar o mouse */
+        }
+
         @keyframes countdownAnimation {
             0% {
                 transform: scale(0.9);
@@ -300,12 +321,12 @@
                 align-items: center; /* Centraliza horizontalmente */
                 text-align: center;
                 height: 100vh; /* Ocupa a altura toda da tela */
-                padding: 40px 20px;
+                padding: 0px 0px;
                 /* background: rgba(0, 0, 0, 0.8); Fundo mais opaco para legibilidade */
             }
 
             main {
-                margin: 40px 40px;
+                margin: 40px 50px;
                 padding: 30px 20px; 
             }
 
@@ -358,7 +379,7 @@
 
         @media (max-width: 480px) {
             main {
-                margin: 20px 15px; 
+                margin: 20px 20px; 
                 padding: 40px 25px; 
             }
             header h1 {
@@ -415,7 +436,7 @@
     <main>
         <div class="tabs">
             <button class="tablink active" onclick="openTab(event, 'wedding')">Casamento & Batizado</button>
-            <button class="tablink" onclick="openTab(event, 'rsvp')">Confirmação</button>
+            <button  id="rsvp-tab" class="tablink" onclick="openTab(event, 'rsvp')">Confirmação</button>
         </div>
 
         <div id="wedding" class="tabcontent active">
@@ -428,6 +449,12 @@
                 <a href="https://maps.app.goo.gl/y8sSNpKhgnfq7tRF7" target="_blank">Ver no mapa</a></p>
             <p><strong>Celebração:</strong> Quinta do Juncal, Serra D'El Rei
                 <a href="https://maps.app.goo.gl/qBDijR2w85xcrqxA6" target="_blank">Ver no mapa</a></p>
+            <p><strong>Data limite para confirmação:</strong> <span id="deadline-date">2 de Agosto de 2025</span></p>
+            <p id="deadline-message" class="deadline-message">
+                As confirmações de presença estão encerradas. Para mais informações, entre em contato com os noivos através dos números: 
+                <a href="tel:911909059">Adriana - 911909059</a> | 
+                <a href="tel:916761125">Rúben - 916761125</a>
+            </p>
         </div>
 
         <div id="rsvp" class="tabcontent">
@@ -585,6 +612,65 @@
 
         const form = document.getElementById('rsvp-form');
         const successMessage = document.getElementById('rsvp-success');
+        const errorMessage = document.getElementById('rsvp-error');
+        const deadlineMessage = document.getElementById('deadline-message'); // Mensagem de encerramento
+        const deadlineDateElement = document.getElementById('deadline-date');
+        const rsvpTabButton = document.getElementById('rsvp-tab'); // Botão da aba de confirmação
+
+        // Data limite para confirmação (3 semanas antes do casamento)
+        // const deadlineDate = new Date('2025-08-02T23:59:59');
+        const deadlineDate = new Date('2025-03-14T23:59:59');
+
+        function checkDeadline() {
+            const now = new Date();
+            if (now > deadlineDate) {
+                // Exibe a mensagem de encerramento na primeira aba
+                deadlineMessage.style.display = 'block';
+                // Desabilita o formulário na segunda aba
+                form.querySelectorAll('input, textarea, button').forEach(element => {
+                    element.disabled = true;
+                });
+                // Desabilita o botão da aba de confirmação
+                rsvpTabButton.disabled = true;
+                rsvpTabButton.style.opacity = '0.5'; // Torna o botão mais claro para indicar que está desabilitado
+                rsvpTabButton.style.cursor = 'not-allowed'; // Altera o cursor para indicar que o botão não é clicável
+                // Verifica se a mensagem de encerramento já foi adicionada ao formulário
+                if (!document.getElementById('deadline-message-form')) {
+                    // Cria a mensagem de encerramento para o formulário
+                    const deadlineMessageForm = document.createElement('p');
+                    deadlineMessageForm.id = 'deadline-message-form'; // Adiciona um ID para evitar duplicação
+                    deadlineMessageForm.textContent = 'As confirmações de presença estão encerradas. Para mais informações, entre em contato com os noivos: ';
+                    
+                    // Adiciona links clicáveis para os números de telefone
+                    const adrianaLink = document.createElement('a');
+                    adrianaLink.href = 'tel:911909059';
+                    adrianaLink.textContent = 'Adriana - 911909059';
+                    
+                    const rubenLink = document.createElement('a');
+                    rubenLink.href = 'tel:916761125';
+                    rubenLink.textContent = 'Rúben - 916761125';
+
+                    // Adiciona os links à mensagem
+                    deadlineMessageForm.appendChild(adrianaLink);
+                    deadlineMessageForm.appendChild(document.createTextNode(' | ')); // Adiciona um separador
+                    deadlineMessageForm.appendChild(rubenLink);
+
+                    // Estiliza a mensagem
+                    deadlineMessageForm.style.color = '#721c24';
+                    deadlineMessageForm.style.fontWeight = 'bold';
+                    deadlineMessageForm.style.marginTop = '20px';
+
+                    // Insere a mensagem no DOM
+                    form.parentNode.insertBefore(deadlineMessageForm, form.nextSibling);
+                }
+            } else {
+                // Se ainda estiver dentro do prazo, exibe a data limite
+                deadlineDateElement.textContent = '2 de Agosto de 2025';
+            }
+        }
+
+        // Verifica a data limite ao carregar a página
+        checkDeadline();
 
         form.addEventListener('submit', async function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
