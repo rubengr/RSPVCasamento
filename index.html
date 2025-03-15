@@ -532,7 +532,7 @@
                     Adriana - 911909059 | Rúben - 916761125
                 </div>
                 <div id="loading-message" class="rsvp-message loading">
-                    Aguarde, estamos processando sua confirmação...
+                    Aguarde, estamos a processar a sua confirmação...
                 </div>
             </div>
         </div>
@@ -724,8 +724,6 @@
 
                     // Opcional: Limpa o formulário após o envio
                     // document.getElementById('rsvpForm').reset();
-                    // Rola a página até a mensagem de sucesso
-                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     errorMessage.classList.add('show');
                     // alert("Ocorreu um erro: " + result.message);
@@ -749,6 +747,8 @@
                 // Reabilita o botão de envio e oculta a mensagem de carregamento
                 submitButton.disabled = false; // Reabilita o botão de envio
                 loadingMessage.style.display = 'none';
+                // Rola a página até a mensagem de sucesso
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
 
