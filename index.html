@@ -291,6 +291,15 @@
         .deadline-message a:hover {
             text-decoration: underline; /* Sublinhado ao passar o mouse */
         }
+        .rsvp-message.loading {
+            background-color: #f8f9fa;
+            color: #5b4636;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none; /* Inicialmente oculta */
+        }
 
         @keyframes countdownAnimation {
             0% {
@@ -522,6 +531,9 @@
                     Ocorreu um erro ao enviar sua confirmação. Por favor, entre em contato com os noivos:<br>
                     Adriana - 911909059 | Rúben - 916761125
                 </div>
+                <div id="loading-message" class="rsvp-message loading">
+                    Aguarde, estamos processando sua confirmação...
+                </div>
             </div>
         </div>
 
@@ -676,7 +688,11 @@
             event.preventDefault(); // Impede o envio padrão do formulário
 
             const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = true; // Desabilita o botão de envio
+            const loadingMessage = document.getElementById('loading-message');
+
+            // Desabilita o botão de envio e exibe a mensagem de carregamento
+            submitButton.disabled = true;
+            loadingMessage.style.display = 'block';
 
             const formData = new FormData(this);
             const data = {
@@ -730,9 +746,9 @@
                 errorMessage.classList.add('show');
                 console.error(error);
             } finally {
-                
+                // Reabilita o botão de envio e oculta a mensagem de carregamento
                 submitButton.disabled = false; // Reabilita o botão de envio
-                
+                loadingMessage.style.display = 'none';
             }
         });
 
