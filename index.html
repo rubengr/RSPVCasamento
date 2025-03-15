@@ -458,7 +458,7 @@
         </div>
 
         <div id="rsvp" class="tabcontent">
-            <h2>Confirme sua presença</h2>
+            <h2>Confirme a sua presença</h2>
             <div class="rsvp-container">
                 <form id="rsvp-form" name="rsvp" method="POST" action="https://rspv-casamento.vercel.app/api/submit">
                     <input type="hidden" name="form-name" value="rsvp">
@@ -516,7 +516,7 @@
                 </form>
         
                 <div id="rsvp-success" class="rsvp-message">
-                    Obrigado por confirmar sua presença! Estamos ansiosos para celebrar com você.
+                    Obrigado por confirmar a sua presença! Estamos ansiosos para celebrar-mos juntos.
                 </div>
                 <div id="rsvp-error" class="rsvp-message error">
                     Ocorreu um erro ao enviar sua confirmação. Por favor, entre em contato com os noivos:<br>
@@ -708,6 +708,8 @@
 
                     // Opcional: Limpa o formulário após o envio
                     // document.getElementById('rsvpForm').reset();
+                    // Rola a página até a mensagem de sucesso
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     errorMessage.classList.add('show');
                     // alert("Ocorreu um erro: " + result.message);
@@ -729,6 +731,15 @@
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual'; // Desativa a restauração automática do scroll
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Adiciona um efeito de rolagem suave (opcional)
+                });
+        });
         
     </script>
 </body>
