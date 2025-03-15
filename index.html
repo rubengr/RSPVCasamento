@@ -716,10 +716,23 @@
                 }
             } catch (error) {
                 // alert("Erro ao enviar o formulário. Tente novamente.");
+                // Tenta enviar os dados por WhatsApp, se falha do envio ao servidor
+                try {
+                    // Formata a mensagem para o WhatsApp
+                    const whatsappMessage = `Nome: ${data.name}\nE-mail: ${data.email}\nMensagem: ${data.message}\nAdultos: ${data.adults}\nCrianças (4-9 anos): ${data.kids4to9}\nCrianças (0-3 anos): ${data.kids0to3}`;
+                    const whatsappLink = `https://wa.me/351916761125?text=${encodeURIComponent(whatsappMessage)}`;
+
+                    // Abre o link do WhatsApp em uma nova aba
+                    window.open(whatsappLink, '_blank');
+                } catch (whatsappError) {
+                    console.error("Erro ao enviar por WhatsApp:", whatsappError);
+                }
                 errorMessage.classList.add('show');
                 console.error(error);
             } finally {
+                
                 submitButton.disabled = false; // Reabilita o botão de envio
+                
             }
         });
 
