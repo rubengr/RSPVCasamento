@@ -537,6 +537,22 @@
             </div>
         </div>
 
+        <div id="uploadSection" style="display:none;">
+            <h2>Partilha de Fotos e Vídeos</h2>
+            <p>Pedimos aos convidados que, se possível, partilhem algumas fotos connosco.</p>
+            <a href="https://www.dropbox.com/request/zhsukCoUMIZxGeUr9E1I" target="_blank">
+                <button>Enviar arquivos</button>
+              </a>
+          </div>
+
+        
+          <div id="mensagem-antes-data">
+            <h2>Partilha de Fotos e Vídeos</h2>
+            <p>Pedimos aos nossos convidados que, se possível, partilhem algumas fotos e vídeos connosco deste dia especial.</p>
+            <p>O envio de fotos e vídeos só estará disponível a partir de <strong>23/08/2025</strong>.</p>
+          </div>
+        
+
         <div className="mt-6 p-4 border rounded-2xl shadow-sm bg-white">
             <h2 className="text-xl font-semibold mb-2">Alojamento</h2>
             <p>
@@ -794,7 +810,22 @@
                     behavior: 'smooth' // Adiciona um efeito de rolagem suave (opcional)
                 });
         });
-        
+
+        // const hoje = new Date();
+        const hoje = eventDate;
+        const liberado = hoje >= eventDate;
+
+        if (liberado) {
+            document.getElementById("uploadSection").style.display = "block";
+            document.getElementById("mensagem-antes-data").style.display = "none";
+        // Aqui você pode iniciar a autenticação anônima e outras lógicas
+        } else {
+            document.getElementById("mensagem-antes-data").style.display = "block";
+            document.getElementById("uploadSection").style.display = "none";
+            // document.body.innerHTML = "<h2>O envio de fotos e vídeos só estará disponível a partir de 23 de agosto de 2025.</h2>";
+        }
+
+      
     </script>
 </body>
 </html>
